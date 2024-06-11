@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Container from '../container/container'
 
 import { ArrowDownLeft } from 'lucide-react'
+import Link from 'next/link'
 import {
 	Breadcrumb,
 	BreadcrumbEllipsis,
@@ -67,9 +68,11 @@ export default function Hero() {
 								ACADEMY
 							</h1>
 
-							<Button className='mt-6 w-[160px] flex gap-2 font-bold rounded-[21px]'>
-								Start now <ChevronRight size={18} />
-							</Button>
+							<Link href={'/course/tasks'}>
+								<Button className='mt-6 w-[160px] flex gap-2 font-bold rounded-[21px]'>
+									Start now <ChevronRight size={18} />
+								</Button>
+							</Link>
 						</div>
 
 						<div className='w-full flex flex-col lg:mt-24 mt-6'>
@@ -100,7 +103,7 @@ export default function Hero() {
 					</div>
 
 					<div>
-						<div className='w-full flex justify-center flex-col mt-6 gap-4'>
+						<div className='w-full flex justify-center items-center flex-col mt-6 gap-4'>
 							<Image
 								src={'/hero.png'}
 								alt={'heroimage'}
