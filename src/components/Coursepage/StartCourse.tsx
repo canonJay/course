@@ -1,9 +1,10 @@
 'use client'
 
-import { ChevronRight } from 'lucide-react'
+import { ChevronRight, Lightbulb } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { FC, useState } from 'react'
+import { toast } from 'sonner'
 import { Button } from '../ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
 
@@ -55,7 +56,18 @@ export const StartCourse: FC<StartCourseProps> = ({}) => {
 						/>
 
 						<Button
-							onClick={() => push('/course/tasks')}
+							onClick={() => {
+								push('/course/tasks')
+								toast.custom(t => (
+									<div className='shadow-2xl border border-border rounded-xl p-4 flex gap-2 items-center'>
+										<Lightbulb size={18} className='text-primary' />
+
+										<span className='text-sm font-semibold'>
+											The application has been sent for consideration.
+										</span>
+									</div>
+								))
+							}}
 							className=' font-medium px-4 py-1 lg:mt-[40px] flex gap-2  rounded-[21px]'
 						>
 							Start now <ChevronRight size={18} />

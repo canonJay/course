@@ -15,6 +15,8 @@ class UserServices {
 
 		setAuthToken(res.data.token)
 
+		localStorage.setItem('userId', res.data.user_id.toString())
+
 		return res.data
 	}
 
@@ -24,7 +26,19 @@ class UserServices {
 			FormData
 		)
 
+		localStorage.setItem('userId', res.data.user_id.toString())
+
 		setAuthToken(res.data.token)
+
+		return res.data
+	}
+
+	async getAuthUser() {
+		const res = await axiosInstanceNoAuth.get<userAuthResponse>(
+			`${API_URL}/${
+				this.USER_PREFIX
+			}global/profile?user_id=${localStorage.getItem('userId')}`
+		)
 
 		return res.data
 	}

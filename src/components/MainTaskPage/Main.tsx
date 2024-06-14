@@ -18,6 +18,7 @@ import {
 	DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
 import { Label } from '../ui/label'
+import { BugReport } from './BugReport'
 
 export function Main() {
 	return (
@@ -56,10 +57,7 @@ export function Main() {
 							</BreadcrumbList>
 						</Breadcrumb>
 					</div>
-
-					<Button variant={'link'} className='p-0 text-primary'>
-						Report a bug
-					</Button>
+					<BugReport />
 				</div>
 
 				<div className='w-full flex justify-between mt-8 items-center'>

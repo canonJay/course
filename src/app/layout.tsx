@@ -4,6 +4,7 @@ import { Header } from '@/components/header'
 import { rosario } from '@/fonts'
 import { cn } from '@/lib/utils'
 import type { Metadata } from 'next'
+import { Toaster } from 'sonner'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -25,6 +26,8 @@ export default function RootLayout({
 
 					<Footer />
 				</Provider>
+
+				<Toaster position='bottom-center' />
 			</body>
 		</html>
 	)
