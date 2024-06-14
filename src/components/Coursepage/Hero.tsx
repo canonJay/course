@@ -1,11 +1,10 @@
 import { lato } from '@/fonts'
 import { cn } from '@/lib/utils'
-import { ChevronRight, Clock, LibraryBig, Star } from 'lucide-react'
+import { Clock, LibraryBig, Star } from 'lucide-react'
 import Image from 'next/image'
 import Container from '../container/container'
 
 import { ArrowDownLeft } from 'lucide-react'
-import Link from 'next/link'
 import {
 	Breadcrumb,
 	BreadcrumbEllipsis,
@@ -14,8 +13,8 @@ import {
 	BreadcrumbList,
 	BreadcrumbPage,
 } from '../ui/breadcrumb'
-import { Button } from '../ui/button'
 import { Progress } from '../ui/progress'
+import { StartCourse } from './StartCourse'
 
 export default function Hero() {
 	return (
@@ -68,11 +67,7 @@ export default function Hero() {
 								ACADEMY
 							</h1>
 
-							<Link href={'/course/tasks'}>
-								<Button className='mt-6 w-[160px] flex gap-2 font-bold rounded-[21px]'>
-									Start now <ChevronRight size={18} />
-								</Button>
-							</Link>
+							<StartCourse />
 						</div>
 
 						<div className='w-full flex flex-col lg:mt-24 mt-6'>

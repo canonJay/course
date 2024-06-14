@@ -6,7 +6,7 @@ import { HowWork } from '@/components/Coursepage/HowWork'
 import { Question } from '@/components/Coursepage/Question'
 import { WeLearn } from '@/components/Coursepage/WeLearn'
 
-export default function coursePage() {
+export default function CoursePage() {
 	return (
 		<main>
 			<Hero />

@@ -7,6 +7,11 @@ import { Button } from '../ui/button'
 import { Checkbox } from '../ui/checkbox'
 import { Input } from '../ui/input'
 
+import { SubmitHandler, useForm } from 'react-hook-form'
+
+import { userService } from '@/services/user.services'
+import { useMutation } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
 import 'swiper/css'
 import { Label } from '../ui/label'
 
@@ -16,6 +21,52 @@ interface AuthFormProps {
 
 export const AuthForm: FC<AuthFormProps> = ({ isLogin }) => {
 	const [isLoginForm, setIsLoginForm] = useState<boolean>(isLogin)
+
+	const { register, handleSubmit, formState } = useForm<userRegisterFormData>({
+		mode: 'onChange',
+	})
+
+	const { replace } = useRouter()
+
+	const passwordError = formState.errors?.password?.message
+	const emailError = formState.errors?.email?.message
+
+	const {
+		mutate: loginMutate,
+		isPending: loginPending,
+		error: loginError,
+		data: loginData,
+	} = useMutation({
+		mutationKey: ['login'],
+		mutationFn: userService.login,
+		onSuccess: () => {
+			replace('/profile')
+		},
+	})
+
+	const {
+		mutate: registerMutate,
+		isPending: registerPending,
+		error: registerError,
+		data: registerData,
+	} = useMutation({
+		mutationKey: ['register'],
+		mutationFn: userService.login,
+		onSuccess: () => {
+			replace('/profile')
+		},
+	})
+
+	const onSubmit: SubmitHandler<userLoginFormData> = (
+		data: userLoginFormData
+	) => {
+		if (isLoginForm) {
+			loginMutate(data)
+			return
+		}
+
+		registerMutate(data)
+	}
 
 	return (
 		<>
@@ -32,15 +83,46 @@ export const AuthForm: FC<AuthFormProps> = ({ isLogin }) => {
 						: 'Welcome to WAMOCON ACADEMY!'}
 				</span>
 
+				{passwordError && (
+					<span className='text-sm font-medium text-[#E94E4E]'>
+						{passwordError}
+					</span>
+				)}
+
+				{emailError && (
+					<span className='text-sm font-medium text-[#E94E4E]'>
+						{emailError}
+					</span>
+				)}
+
+				{registerError && (
+					<span className='text-sm font-medium text-[#E94E4E]'>
+						{registerError.name}
+					</span>
+				)}
+
+				{loginError && (
+					<span className='text-sm font-medium text-[#E94E4E]'>
+						{loginError.message}
+					</span>
+				)}
+
 				<form
 					className='w-full flex flex-col gap-4 mt-8'
-					onSubmit={e => e.preventDefault()}
+					onSubmit={handleSubmit(onSubmit)}
 				>
 					{isLoginForm ? (
 						<>
 							<div className='w-full realtive flex items-center'>
 								<Mail size={16} className='absolute left-12 text-[#A7AEB8]' />
 								<Input
+									{...register('email', {
+										required: 'Email is required',
+										pattern: {
+											value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+											message: 'Invalid email address',
+										},
+									})}
 									className='border-[#c2d5da] pl-10 rounded-xl py-6 placeholder:text-[#A7AEB8] outline-none'
 									type='email'
 									placeholder='Email'
@@ -53,6 +135,13 @@ export const AuthForm: FC<AuthFormProps> = ({ isLogin }) => {
 									className='absolute left-12 text-[#A7AEB8]'
 								/>
 								<Input
+									{...register('password', {
+										required: 'Password is required',
+										minLength: {
+											value: 6,
+											message: 'Password must be at least 6 characters',
+										},
+									})}
 									className='border-[#c2d5da] pl-10 rounded-xl py-6 placeholder:text-[#A7AEB8] outline-none'
 									type='password'
 									placeholder='Password'
@@ -69,6 +158,9 @@ export const AuthForm: FC<AuthFormProps> = ({ isLogin }) => {
 											className='absolute left-12 text-[#A7AEB8]'
 										/>
 										<Input
+											{...register('name', {
+												required: 'Name is required',
+											})}
 											className='border-[#c2d5da] pl-10 rounded-xl py-6 placeholder:text-[#A7AEB8] outline-none'
 											type='text'
 											placeholder='Full name'
@@ -80,6 +172,9 @@ export const AuthForm: FC<AuthFormProps> = ({ isLogin }) => {
 											className='absolute left-12 text-[#A7AEB8]'
 										/>
 										<Input
+											{...register('phone', {
+												required: 'Phone number is required',
+											})}
 											className='border-[#c2d5da] pl-10 rounded-xl py-6 placeholder:text-[#A7AEB8] outline-none'
 											type='number'
 											placeholder='Phone number'
@@ -91,6 +186,13 @@ export const AuthForm: FC<AuthFormProps> = ({ isLogin }) => {
 											className='absolute left-12 text-[#A7AEB8]'
 										/>
 										<Input
+											{...register('email', {
+												required: 'Email is required',
+												pattern: {
+													value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+													message: 'Invalid email address',
+												},
+											})}
 											className='border-[#c2d5da] pl-10 rounded-xl py-6 placeholder:text-[#A7AEB8] outline-none'
 											type='email'
 											placeholder='Email'
@@ -104,8 +206,11 @@ export const AuthForm: FC<AuthFormProps> = ({ isLogin }) => {
 											className='absolute left-12 lg:left-[465px] text-[#A7AEB8]'
 										/>
 										<Input
+											{...register('telegramTag', {
+												required: 'Telegram is required',
+											})}
 											className='border-[#c2d5da] pl-10 rounded-xl py-6 placeholder:text-[#A7AEB8] outline-none'
-											type='email'
+											type='text'
 											placeholder='Telegram'
 										/>
 									</div>
@@ -116,6 +221,13 @@ export const AuthForm: FC<AuthFormProps> = ({ isLogin }) => {
 											className='absolute left-12 lg:left-[465px] text-[#A7AEB8]'
 										/>
 										<Input
+											{...register('password', {
+												required: 'Password is required',
+												minLength: {
+													value: 6,
+													message: 'Password must be at least 6 characters',
+												},
+											})}
 											className='border-[#c2d5da] pl-10 rounded-xl py-6 placeholder:text-[#A7AEB8] outline-none'
 											type='password'
 											placeholder='Password'
@@ -149,8 +261,12 @@ export const AuthForm: FC<AuthFormProps> = ({ isLogin }) => {
 						</span>
 					</div>
 
-					<Button className='text-white font-semibold rounded-3xl'>
-						Log in
+					<Button
+						type='submit'
+						className='text-white font-semibold rounded-3xl'
+						disabled={loginPending || registerPending}
+					>
+						{isLoginForm ? 'Log in' : 'Create account'}
 					</Button>
 				</form>
 

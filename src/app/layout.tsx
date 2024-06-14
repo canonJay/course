@@ -1,3 +1,4 @@
+import Provider from '@/Providers/Provider'
 import { Footer } from '@/components/footer/Footer'
 import { Header } from '@/components/header'
 import { rosario } from '@/fonts'
@@ -18,10 +19,12 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body className={cn(rosario.className, 'flex flex-col h-screen')}>
-				<Header />
-				{children}
+				<Provider>
+					<Header />
+					{children}
 
-				<Footer />
+					<Footer />
+				</Provider>
 			</body>
 		</html>
 	)
