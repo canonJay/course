@@ -19,6 +19,9 @@ const config = {
 			},
 		},
 		extend: {
+			backgroundImage: {
+				'logo-pattern': "url('/mobilelogo.svg')",
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',

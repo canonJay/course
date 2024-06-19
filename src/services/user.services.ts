@@ -13,9 +13,7 @@ class UserServices {
 			FormData
 		)
 
-		setAuthToken(res.data.token)
-
-		localStorage.setItem('userId', res.data.user_id.toString())
+		setAuthToken(res.data.token, res.data.user_id)
 
 		return res.data
 	}
@@ -26,9 +24,7 @@ class UserServices {
 			FormData
 		)
 
-		localStorage.setItem('userId', res.data.user_id.toString())
-
-		setAuthToken(res.data.token)
+		setAuthToken(res.data.token, res.data.user_id)
 
 		return res.data
 	}

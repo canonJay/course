@@ -4,8 +4,10 @@ export const getContentType = () => ({
 	'Content-Type': 'application/json',
 })
 
-export function setAuthToken(token: string) {
+export function setAuthToken(token: string, id: number) {
 	Cookies.set('token', token)
+
+	Cookies.set('id', id.toString())
 }
 
 export function getAuthToken() {

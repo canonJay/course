@@ -1,3 +1,4 @@
+import { getUserSsrData } from '@/actiots/actions'
 import { ChevronDown, List, LogIn } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -13,14 +14,18 @@ import {
 	DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
 
-export const Header = ({}) => {
+export const Header = async ({}) => {
+	const user = await getUserSsrData()
+
+	console.log(user)
+
 	return (
 		<header>
 			<Container>
 				<div className='w-full flex justify-between py-4'>
 					<Image
 						className='lg:hidden'
-						src={'mobilelogo.svg'}
+						src={'/mobilelogo.svg'}
 						alt={'logo'}
 						width={56}
 						height={21}
@@ -28,7 +33,7 @@ export const Header = ({}) => {
 
 					<Image
 						className='hidden lg:block'
-						src={'logo.svg'}
+						src={'/logo.svg'}
 						alt={'logo'}
 						width={200}
 						height={42}
@@ -36,7 +41,19 @@ export const Header = ({}) => {
 
 					<ul className='hidden lg:flex gap-8 items-center'>
 						<li className='text-base text-primary'>
-							<Link href={'/'}>All courses</Link>
+							<Link href={'/admin/course'}>Courses</Link>
+						</li>
+
+						<li className='text-base '>
+							<Link href={'/admin/groups'}>Groups</Link>
+						</li>
+
+						<li className='text-base '>
+							<Link href={'/admin/trainers'}>Trainers</Link>
+						</li>
+
+						<li className='text-base '>
+							<Link href={'/admin/students'}>Students</Link>
 						</li>
 
 						<li className='text-base'>
@@ -95,7 +112,7 @@ export const Header = ({}) => {
 									<Link className='flex flex-col' href={'#'}>
 										En
 										<Image
-											src={'mobilelogo.svg'}
+											src={'/mobilelogo.svg'}
 											alt={'en'}
 											width={15}
 											height={15}

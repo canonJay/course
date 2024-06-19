@@ -26,7 +26,7 @@ export const BurgerMenu: FC<BurgerMenuProps> = ({}) => {
 				variant={'ghost'}
 				onClick={() => setOpen(!open)}
 			>
-				<Image src={'menu.svg'} alt={'menu'} width={30} height={30} />
+				<Image src={'/menu.svg'} alt={'menu'} width={30} height={30} />
 			</Button>
 
 			{open && (
@@ -34,7 +34,7 @@ export const BurgerMenu: FC<BurgerMenuProps> = ({}) => {
 					<Container>
 						<div className='w-full flex justify-between'>
 							<Image
-								src={'mobilelogo.svg'}
+								src={'/mobilelogo.svg'}
 								alt={'logo'}
 								width={46}
 								height={11}
