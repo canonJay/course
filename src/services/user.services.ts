@@ -1,5 +1,5 @@
 import { setAuthToken } from '@/api/api.helper'
-import { axiosInstanceNoAuth } from '@/api/axios'
+import { axiosInstanceNoAuth, axiosInstanceWithAuth } from '@/api/axios'
 import { API_URL } from '@/constants/api.constants'
 
 class UserServices {
@@ -30,7 +30,7 @@ class UserServices {
 	}
 
 	async getAuthUser() {
-		const res = await axiosInstanceNoAuth.get<userAuthResponse>(
+		const res = await axiosInstanceWithAuth.get<userAuthResponse>(
 			`${API_URL}/${
 				this.USER_PREFIX
 			}global/profile?user_id=${localStorage.getItem('userId')}`

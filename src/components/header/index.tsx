@@ -1,4 +1,3 @@
-import { getUserSsrData } from '@/actiots/actions'
 import { ChevronDown, List, LogIn } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -15,9 +14,9 @@ import {
 } from '../ui/dropdown-menu'
 
 export const Header = async ({}) => {
-	const user = await getUserSsrData()
+	// const user = await getUserSsrData()
 
-	console.log(user)
+	// console.log(user)
 
 	return (
 		<header>
@@ -41,19 +40,15 @@ export const Header = async ({}) => {
 
 					<ul className='hidden lg:flex gap-8 items-center'>
 						<li className='text-base text-primary'>
-							<Link href={'/admin/course'}>Courses</Link>
+							<Link href={'/trainer/groups'}>All groups</Link>
 						</li>
 
 						<li className='text-base '>
-							<Link href={'/admin/groups'}>Groups</Link>
+							<Link href={'/trainer/questions'}>Student questions</Link>
 						</li>
 
 						<li className='text-base '>
-							<Link href={'/admin/trainers'}>Trainers</Link>
-						</li>
-
-						<li className='text-base '>
-							<Link href={'/admin/students'}>Students</Link>
+							<Link href={'/trainer/students'}>Student answers</Link>
 						</li>
 
 						<li className='text-base'>
